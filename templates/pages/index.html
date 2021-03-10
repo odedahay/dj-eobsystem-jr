@@ -1,0 +1,115 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pagetitle %} Home {% endblock %}
+
+{% block content %}
+ <!-- Hero Section -->
+ <div class="hero-banner" style=" background-image: linear-gradient(to right bottom, rgba(34,63,154,0.8), rgba(27,44,95,0.8)), url( {%static '/images/hero-image.jpg' %});">
+    <div class="hero-banner__text-box">
+        <h1 class="heading-primary-main">Standard way to understand and implement your system requirement.</h1>
+        <h2 class="heading-primary-sub"></h2>
+        <a href="{% url 'services' %}" class="btn hero-banner__btn-main">Learn More</a>
+        <a href="{% url 'contact-us' %}" class="btn hero-banner__btn-sub">Contact Us</a>
+    </div>
+</div>
+<!-- Latest Product section -->
+
+<br>
+<!-- Categories Section -->
+<section class="white-background">
+    <div class="wrapper row--b-padding100 padding-top-60">
+        <h2 class="section-heading">Information and Technology Systems</h2>
+        <div class="category">
+
+            {% if products %}
+                {% for item in products %}
+                <div class="category__box-item">
+                    <div class="row__box-blue">
+                        <a href="{% url 'systems_product:systems_product_details' item.slug %}"><h2>{{item.title}}</h2></a>
+                    </div>
+                </div>
+                {% endfor %}
+            {% else %}
+                <p>No content available</p>
+            {% endif %}
+            <br>
+        </div>   
+    </div>
+</section>
+
+<div class="about-us-home gray-background-slide">
+    <div class="wrapper row--b-padding row--b-padding100">
+        <!-- <hr class="style-one"> -->
+        <br>
+        <h2 class="section-heading row--t-padding">About Us</h2>
+        <div class="row row--gutters generic-content-container">
+            <div class="row__medium-6">
+                <div class="row__medium-image">
+                    <img src="{% static '/images/about-us.png' %}" alt="About Us" />
+                </div>
+                 <!-- Our Clients Section -->
+
+                 <p class="section-heading row--t-padding  f-size-m">ACCREDITATION / MEMBERSHIP / AFFILITION</p>
+                <div class="client">
+                    <div class="client__box-item">
+                        <img src="{% static 'images/philGEPS.png' %}" alt="client name">
+                    </div>
+                </div>
+
+       
+
+            </div>
+            <div class="row__medium-6">
+                <div class="row__medium-wrapper">
+                    {% if about %}
+                        {% for page in about %}
+                            {{ page.page_intro | safe }}
+                        {% endfor %}
+                    {% endif %}
+                    <p><a href="{% url 'about-us' %}" class="btn primary-btn">Read More</a></p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Clients -->
+
+<section class="white-background">
+    <div class="wrapper">
+        <h2 class="section-heading f-size-m">Clients</h2>
+        <div class="client-list">
+            <div class="col">
+                <img src="{% static 'images/client-a1.jpg'%}" alt="CCTV" class="first_img">
+            </div>
+            <div class="col">
+                <img src="{% static 'images/client-2.jpg'%}" alt="CCTV" class="first_img">
+            </div>
+            <div class="col">
+                <img src="{% static 'images/client-3.jpg'%}" alt="CCTV" class="first_img">
+            </div>
+            <div class="col">
+                <img src="{% static 'images/client-5.jpg'%}" alt="CCTV" class="first_img">
+            </div>
+            <div class="col">
+                <img src="{% static 'images/client-6.jpg'%}" alt="CCTV" class="first_img">
+            </div>
+            <div class="col">
+                <img src="{% static 'images/client-7.jpg'%}" alt="CCTV" class="first_img">
+            </div>
+            <div class="col">
+                <img src="{% static 'images/client-8.jpg'%}" alt="CCTV" class="first_img">
+            </div>
+            <div class="col">
+                <img src="{% static 'images/client-9.jpg'%}" alt="CCTV" class="first_img">
+            </div>
+            
+        </div>
+    </div>
+</section>
+
+
+
+{% endblock %}
+
+

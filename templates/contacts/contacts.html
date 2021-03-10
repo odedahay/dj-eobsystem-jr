@@ -1,0 +1,101 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pagetitle %} Contact Us {% endblock %}
+
+{% block content %}
+<!-- Hero Section -->
+<div class="hero-banner hero-banner__inner" style=" background-image: linear-gradient(to right bottom, rgba(34,63,154,0.8), rgba(27,44,95,0.8)), url({% static 'images/hero-image.jpg' %});">
+    <div class="hero-banner__text-box">
+        <h1 class="heading-primary-main heading-primary-main-inner">Contact Us</h1>
+    </div>
+</div>
+
+<div class="category-page">
+    <div class="wrapper row--b-padding">
+        
+        <h2 class="section-heading row--t-padding margin-btm margin-top-1"></h2>
+
+        <div class="row row--gutters generic-content-container">
+            <div class="row__medium-4">
+
+                {% if contact_sidebar %}
+                    {% for page in contact_sidebar %}
+                        {{page.body | safe}}
+                    {% endfor %}
+
+                {% else %}
+                    <p class="lead">No content available</p>
+                {% endif %}
+            </div>
+            <div class="row__medium-8">
+              
+                <div class="row__medium-wrapper main-content">
+                    <div class="contact-main__form mb-4" id="email">
+                        <h2 class="color-pink">Make Appointment or Enquiry</h2>
+                        <form name="contacts" method="POST" role="form" enctype="multipart/form-data" action="{% url 'submit' %}">
+                            {% csrf_token %}
+                            <div class="form-control">
+                                <label class="label-style">Name:</label>
+                                <input type="text" name="name" placeholder="Full Name" required>
+                            </div>
+                            <div class="form-control">
+                                <label class="label-style">Mobile Number: </label>
+                                <input type="tel" name="phone" placeholder="(+63) 9164047893"  required>
+                            </div>
+                            <div class="form-control">
+                                <label class="label-style">Email Address:</label>
+                                <input type="email" name="email" placeholder="Email" required>
+                            </div>
+                            <div class="form-control">
+                                <label class="label-style">I want to make an enquiry:</label>
+                                <input type="text" id="titleInput" name="enquiry" placeholder="Name of Product">
+                            </div>
+                            <div class="form-control">
+                                <label class="label-style">Message:</label>
+                                <textarea placeholder="How can we help?" name="message"></textarea>
+                            </div>
+                            <br>
+                            <!-- Alert -->
+                            {% include 'partials/_alerts.html'%}
+                            <div class="form-control">
+                                <label class="label-style">Captha:</label>
+                                <canvas id="myCanvas" width="250px" height="80" style="background-color: beige;">{{img}}</canvas>
+                                <input type="text" class="" name="captha" placeholder="Captha" style="width: 250px; display:block; margin-top:10px" required>
+                            </div>
+                           
+                            <br><br>
+                            <input type="submit" value="Submit" class="btn primary-btn btn-outline">
+                        </form>
+                    </div>
+                   
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+    function getParameter(paramName){
+        let parameters = new URLSearchParams(window.location.search);
+        return parameters.get(paramName);
+    }
+    const paramTitle = getParameter('systems');
+    document.getElementById('titleInput').value = paramTitle;
+
+
+    // Captha
+    const canvas = document.getElementById("myCanvas");
+    var ctx = canvas.getContext("2d");
+    ctx.font = "30px Comic Sans MS";
+    ctx.fillStyle = "red";
+    ctx.textAlign = "center";
+    ctx.fillText("{{img}}", canvas.width/2, canvas.height/2);
+
+
+    // Automatic remove error message
+    setTimeout(function(){
+       document.getElementById('message').remove();
+    }, 5000)
+
+</script>
+{% endblock %}

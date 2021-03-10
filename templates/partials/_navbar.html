@@ -1,0 +1,32 @@
+<div class="wrapper-nav">
+    <div id="menu_mobile" class="menu_mobile_expansion">
+        <div class="close-nav">
+            <i class="fas fa-times-circle"></i>
+        </div>
+        
+        <div class="site-header__main-nav">
+                <nav class="primary-nav">
+                    <ul>
+                        <li><a href="{% url 'index' %}" {% if '/' == request.path %}class="is-current-link" {% endif %} >Home</a></li>
+                        <li onmouseover="mouseOver()" onmouseout="mouseOut()">
+                            <a href="#" {% if 'systems' in request.path %}class="is-current-link" {% endif %}>Systems <i class="fas fa-angle-down fa-xs"></i></a>
+                            
+                            <div id="showMegaMenu" class="menu-box">
+                                <div class="dropdown-content">
+                                    
+                                    {% for item in products %}
+                                        <a href="{% url 'systems_product:systems_product_details' item.slug %}">{{item.title}}</a>
+                                    {% endfor %}
+                                </div>
+                            </div>
+                        </li>
+                        <li><a href="{% url 'services' %}" {% if 'services' in request.path %}class="is-current-link" {% endif %}>Services</a></li>
+                        <li><a href="{% url 'news_update:news-update' %}" {% if 'news-update' in request.path %}class="is-current-link" {% endif %}>News & Update</a></li>
+                        <li><a href="{% url 'about-us' %}" {% if 'about-us' in request.path %} class="is-current-link" {% endif %}>About Us</a></li>
+                        <li><a href="{% url 'contact-us' %}"{% if 'contact-us' in request.path %} class="is-current-link" {% endif %}>Contact</a></li>
+                    </ul>
+                </nav>
+        
+        </div>
+    </div>
+</div>

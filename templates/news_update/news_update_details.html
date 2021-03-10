@@ -1,0 +1,62 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block pagetitle %} News & Update - {{ post.title }}{% endblock %}
+
+{% block content %}
+
+<!-- Hero Section -->
+<div class="hero-banner hero-banner__inner" style=" background-image: linear-gradient(to right bottom, rgba(34,63,154,0.8), rgba(27,44,95,0.8)), url({% static 'images/hero-image.jpg' %});">
+    <div class="hero-banner__text-box">
+        <h1 class="heading-primary-main heading-primary-main-inner">News & Update</h1>
+    </div>
+</div>
+
+
+<div class="category-page">
+    <div class="wrapper row--b-padding">
+    
+        {% if post %}
+           
+                <div class="row row--gutters generic-content-container">
+                    <div class="row__medium-3 margin-top">
+
+                        {% if similar_posts %}
+                            <h3 class="section-heading-sub">Similar Posts</h3>
+                            {% for post in similar_posts %}
+
+                                <ul class="section-heading-sub-ul">
+
+                                    <li><a href="{{ post.get_absolute_url }}">{{ post.title }}</a></li>
+                                
+                                </ul>
+                            
+                            {% empty %}
+
+                                <p>There are no similar posts yet.</p>
+                            
+                            {% endfor %}
+
+                        {% else %}
+                            <p>&nbsp;</p>
+                        {% endif %}
+                    </div>
+
+                    <div class="row__medium-8">
+                        <h2 class="section-heading row--t-padding">{{post.title}}</h2>
+                        <p class="date">{{ post.publish }}</p>
+                        <div class="row__medium-wrapper">
+                            <img src="{{post.photo.url }}" alt="{{post.title}}" class="margin-btm">
+                            
+                            {{post.body | safe}}
+                        </div>
+                    </div>
+                    
+                </div>
+           
+        {% else %}
+            <p>No available post</p>
+        {% endif %}
+    </div>
+</div>
+
+{% endblock %}

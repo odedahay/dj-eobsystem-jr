@@ -1,0 +1,10 @@
+<h3 class="section-heading-sub">Systems Product List</h3>
+<ul class="section-heading-sub-ul">
+    {% if products %}
+        {%for item in products %}
+            <li><a href="{% url 'systems_product:systems_product_details' item.slug %}">{{item.title}}</a></li>
+        {% endfor %}
+    {% else %}
+    <p>No content available</p>
+    {% endif%}
+</ul>

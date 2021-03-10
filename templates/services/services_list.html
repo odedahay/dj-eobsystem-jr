@@ -1,0 +1,58 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block pagetitle %} Services {% endblock %}
+{% block content %}
+
+<!-- Hero Section -->
+<div class="hero-banner hero-banner__inner" style=" background-image: linear-gradient(to right bottom, rgba(34,63,154,0.8), rgba(27,44,95,0.8)), url({% static 'images/hero-image.jpg' %});">
+    <div class="hero-banner__text-box">
+        <h1 class="heading-primary-main heading-primary-main-inner">Services</h1>
+    </div>
+</div>
+
+
+<div class="category-page">
+    <div class="wrapper row--b-padding">
+        <h2 class="section-heading row--t-padding"></h2>
+
+        <!--start -->
+        {% if services %}
+            {% for item in services %}
+                <div class="row row--gutters generic-content-container margin-top">
+                    <div class="row__medium-4">
+
+                        {% if item.photo %}
+
+                            <img src="{{ item.photo.url }}" alt="{{ item.title }}">
+                            
+                        {% else %}
+
+                            <img src="{% static 'images/services-default-img.jpg' %}" alt="{{ item.title }}">
+
+                        {% endif %}
+                    </div>
+                    <div class="row__medium-8">
+                        <h3 class="latest-product__product-title">{{ item.title }}</h3>
+                        <!-- <div class="row__medium-wrapper">
+                            <p class="latest-product__product-desc">
+                                {{products_details.body | safe}}
+                            </p>
+                        </div> -->
+
+                        <div class="row__medium-wrapper">
+                            <div class="main-content">
+                                {{item.body | safe}}
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            {% endfor %}
+        {% else %}
+        <p>No content available</p>
+        {% endif %}
+        <!--end -->
+        
+    </div>
+</div>
+
+{% endblock %}

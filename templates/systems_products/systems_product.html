@@ -1,0 +1,41 @@
+{% extends 'base.html'%}
+{% load static %}
+{% block pagetitle %} Systems Product - {{products_details.title}}{% endblock %}
+{% block content %}
+
+<!-- Hero Section -->
+<div class="hero-banner hero-banner__inner" style=" background-image: linear-gradient(to right bottom, rgba(34,63,154,0.8), rgba(27,44,95,0.8)), url({% static 'images/hero-image.jpg' %});">
+    <div class="hero-banner__text-box">
+        <h1 class="heading-primary-main heading-primary-main-inner">INFORMATION AND TECHNOLOGY SYSTEMS</h1>
+    </div>
+</div>
+
+
+<div class="category-page">
+    <div class="wrapper row--b-padding">
+        
+        <div class="row row--gutters generic-content-container">
+            
+            <div class="row__medium-3 margin-top">
+                {% include 'systems_products/_sidebar.html'%}
+            </div>
+            <div class="row__medium-8">
+                <h2 class="section-heading row--t-padding margin-content-btm">{{products_details.title}}</h2>
+               
+                <div class="row__medium-wrapper">
+                    <div class="main-content">
+                        {% if products_details.photo %}
+                            <img src="{{products_details.photo.url }}" alt="{{products_details.title}}" class="margin-btm">
+                        {% endif %}
+                        {{products_details.body | safe}}
+
+                        <p>For other inquiries feel free to <a class="btn primary_page" href="/contact-us/?systems={{products_details.title}}">contact us</a></p>
+                    </div>
+                </div>
+            </div>
+
+        </div>
+    </div>
+</div>
+
+{% endblock %}

@@ -1,0 +1,29 @@
+<footer class="footer-section">
+    <div class="wrapper">
+        <div class="row row--gutters">
+            <div class="row__medium-6">
+                <p>More inquries: Call 1800-692-7753</p>
+                <p>Copyright © <span class="year"></span> EOBSYSTEMS.COM.  All rights reserved.</p>
+            </div>
+            <div class="row__medium-6">
+                <ul>
+                    <li><a href="/systems/">Information and Technology Systems</a></li>
+                    <li><a href="{% url 'services' %}">Services</a></li>
+                    <li><a href="{% url 'about-us' %}">About Us</a></li>
+                    <li><a href="{% url 'contact-us' %}">Contact Us</a></li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</footer>
+
+<script>
+    
+    function mouseOver() {
+        document.getElementById("showMegaMenu").classList.add("hover");
+    }
+      
+    function mouseOut() {
+        document.getElementById("showMegaMenu").classList.remove("hover");
+      }
+</script>   

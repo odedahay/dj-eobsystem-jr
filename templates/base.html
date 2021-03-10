@@ -1,0 +1,43 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!-- Favicon-->
+    <link rel="shortcut icon" href="{% static 'images/favicon.png' %}">
+    <link href='https://fonts.googleapis.com/css?family=Roboto:400,100,300,500,700' rel='stylesheet' type='text/css'>
+    <title>EOB Systems | {% block pagetitle %}{% endblock %}</title>
+    <meta name="keywords" content="Camera, wireless camera, CCTV">
+    <meta name="description" content="">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/normalize.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/fontawesome.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/brands.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'css/solid.css' %}">
+    <link rel="stylesheet" type="text/css" href="{% static 'style.css' %}">
+</head>
+<body>
+    <div id="main_content">
+        <header class="site-header">
+           
+                
+                <!--topbar-->
+                {% include 'partials/_topbar.html' %}
+                
+                <!--main Nav-->
+                {% include 'partials/_navbar.html' %}
+          
+        </header>
+
+        {% block content %}
+        {% endblock %}
+
+        <!-- Footer Section -->
+        {% include 'partials/_footer.html' %}
+        
+    </div> <!--main content -->
+    
+    <script src="{% static 'js/app.js' %}"></script>
+
+</body>
+</html>
