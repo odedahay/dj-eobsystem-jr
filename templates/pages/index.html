@@ -45,7 +45,18 @@
         <div class="row row--gutters generic-content-container">
             <div class="row__medium-6">
                 <div class="row__medium-image">
-                    <img src="{% static '/images/about-us.png' %}" alt="About Us" />
+                    {% if about %}
+                        {% for page in about %}
+                         
+                            <img src="{{ page.photo.url }}" alt=" {{ page.title }}" />
+                           
+                        {% endfor %}
+                    {% else %}
+
+                        <img src="{% static '/images/about-us.png' %}" alt=" {{ page.title}}" />
+                    
+                    {% endif %}
+                    
                 </div>
                  <!-- Our Clients Section -->
 

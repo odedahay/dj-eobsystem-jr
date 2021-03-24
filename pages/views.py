@@ -26,6 +26,16 @@ def about(request):
     }
     return render(request, 'pages/about.html', context)
 
+def career(request):
+    products = SystemsProduct.objects.order_by('order_by').filter(is_published=True)
+    career = Page.objects.filter(slug__exact='career')
+    
+    context = {
+        'products':products,
+        'career': career
+    }
+    return render(request, 'pages/career.html', context)
+
 
 
 
