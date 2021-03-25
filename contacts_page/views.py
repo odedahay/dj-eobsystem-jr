@@ -17,25 +17,11 @@ def contact_us(request):
     products = SystemsProduct.objects.order_by('order_by').filter(is_published=True)
     contact_sidebar = Page.objects.filter(slug__exact='contact-us')
     
-    context = {
-       
-        'products':products,
-        'contact_sidebar':contact_sidebar
-    }
-
-    return render(request, 'contacts/contacts.html', context)
-
-
-def submit(request):
-    #products = SystemsProduct.objects.order_by('order_by').filter(is_published=True)
-
     if request.method == 'POST':
-
         name = request.POST['name']
         email = request.POST['email']
         phone = request.POST['phone']
         enquiry = request.POST['enquiry']
-        # cap = request.POST.get("captha")
         message = request.POST.get('message')
 
         # save to object
@@ -45,10 +31,7 @@ def submit(request):
                 'phone' :phone,
                 'enquiry' :enquiry,
                 'message' :message,
-        } 
-
-        # if str(cap) == str_num:
-            
+        }
         # Save to DB
         contact = Contact(name=name, email=email, phone=phone, enquiry=enquiry,  message=message)
         contact.save()
@@ -66,20 +49,18 @@ def submit(request):
 
             mail.content_subtype = 'html'
             mail.send(fail_silently=False)
-            
-            return redirect('/contact-us/thank-you')
 
         except BadHeaderError:
             return HttpResponse('Invalid header found')
-        # else:
 
-        #     messages.error(request, 'Captha do not match')
-        #     return redirect('contact-us')
+        return redirect('/contact-us/thank-you')
     
-    else:
+    context = {
+        'products':products,
+        'contact_sidebar':contact_sidebar
+    }
 
-        messages.error(request, 'Invalid submission found')
-        return redirect('contact-us')  
+    return render(request, 'contacts/contacts.html', context)
 
 def thank_you(request):
     products = SystemsProduct.objects.order_by('order_by').filter(is_published=True)

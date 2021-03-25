@@ -32,7 +32,7 @@
                 <div class="row__medium-wrapper main-content">
                     <div class="contact-main__form mb-4" id="email">
                         <h2 class="color-pink">Make Appointment or Enquiry</h2>
-                        <form name="contacts" method="POST" role="form" enctype="multipart/form-data" action="{% url 'submit' %}">
+                        <form name="contacts" method="POST" role="form" enctype="multipart/form-data" action="{% url 'contact-us' %}">
                             {% csrf_token %}
                             <div class="form-control">
                                 <label class="label-style">Name:</label>
