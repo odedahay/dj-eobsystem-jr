@@ -133,6 +133,10 @@ STATICFILES_DIRS = [
     os.path.join(BASE_DIR, 'eobsystems_proj/static')
 ]
 
+# Media Folder Settings
+MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_URL = '/media/'
+
 # EMAIL_HOST = 'smtp.gmail.com'
 # EMAIL_HOST_USER = ''
 # EMAIL_HOST_PASSWORD = ''
