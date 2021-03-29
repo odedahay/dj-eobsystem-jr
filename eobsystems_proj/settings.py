@@ -146,7 +146,6 @@ MEDIA_URL = '/media/'
 # EMAIL_PORT = 587
 # EMAIL_USE_TLS = True
 
-
 # Messages
 from django.contrib.messages import constants as messages
 MESSAGE_TAGS = {
