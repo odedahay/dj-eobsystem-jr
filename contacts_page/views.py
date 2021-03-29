@@ -1,5 +1,6 @@
-import json
-import urllib
+# import json
+# import urllib
+import requests
 
 from django.shortcuts import render, redirect, HttpResponse
 from systems_products.models import SystemsProduct
@@ -29,15 +30,12 @@ def contact_us(request):
 
         ''' Begin reCAPTCHA validation '''
         recaptcha_response = request.POST.get('g-recaptcha-response')
-        url = 'https://www.google.com/recaptcha/api/siteverify'
-        values = {
+        data = {
             'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
             'response': recaptcha_response
         }
-        data = urllib.parse.urlencode(values).encode()
-        req =  urllib.request.Request(url, data=data)
-        response = urllib.request.urlopen(req)
-        result = json.loads(response.read().decode())
+        r = requests.post('https://www.google.com/recaptcha/api/siteverify', data=data)
+        result = r.json()
 
         ''' End reCAPTCHA validation '''
 
