@@ -1,3 +1,6 @@
+import json
+import urllib
+
 from django.shortcuts import render, redirect, HttpResponse
 from systems_products.models import SystemsProduct
 from django.contrib import messages
@@ -10,7 +13,7 @@ from django.core.mail import send_mail, BadHeaderError
 import os
 from django.core.mail import EmailMessage
 from django.template.loader import render_to_string
-import random
+
 
 # Create your views here.
 def contact_us(request):
@@ -24,36 +27,56 @@ def contact_us(request):
         enquiry = request.POST['enquiry']
         message = request.POST.get('message')
 
-        # save to object
-        contextEmail = {
-                'name' :name,
-                'email' :email,
-                'phone' :phone,
-                'enquiry' :enquiry,
-                'message' :message,
+        ''' Begin reCAPTCHA validation '''
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        values = {
+            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
         }
-        # Save to DB
-        contact = Contact(name=name, email=email, phone=phone, enquiry=enquiry,  message=message)
-        contact.save()
+        data = urllib.parse.urlencode(values).encode()
+        req =  urllib.request.Request(url, data=data)
+        response = urllib.request.urlopen(req)
+        result = json.loads(response.read().decode())
+        
+        ''' End reCAPTCHA validation '''
 
-        try:
-            #settings.EMAIL_HOST_USER,
-            mail = EmailMessage(
-                'Email inquiry from ' + name, 
-                # 'Contact Number: ' +  phone + '.'+ '%0A' + message + '\n', 
-                render_to_string('contacts/email.html', contextEmail),
-                email,
-                [settings.EMAIL_HOST_USER], 
-                reply_to=[email]              
-            )
+        if result['success']:
 
-            mail.content_subtype = 'html'
-            mail.send(fail_silently=False)
+            # save to object
+            contextEmail = {
+                    'name' :name,
+                    'email' :email,
+                    'phone' :phone,
+                    'enquiry' :enquiry,
+                    'message' :message,
+            }
+            # Save to DB
+            contact = Contact(name=name, email=email, phone=phone, enquiry=enquiry,  message=message)
+            contact.save()
 
-        except BadHeaderError:
-            return HttpResponse('Invalid header found')
+            try:
+                #settings.EMAIL_HOST_USER,
+                mail = EmailMessage(
+                    'Email inquiry from ' + name, 
+                    # 'Contact Number: ' +  phone + '.'+ '%0A' + message + '\n', 
+                    render_to_string('contacts/email.html', contextEmail),
+                    email,
+                    [settings.EMAIL_HOST_USER], 
+                    reply_to=[email]              
+                )
 
-        return redirect('/contact-us/thank-you')
+                mail.content_subtype = 'html'
+                mail.send(fail_silently=False)
+
+            except BadHeaderError:
+                return HttpResponse('Invalid header found')
+
+            return redirect('/contact-us/thank-you')
+
+        else:
+            messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+            return redirect('contact-us')
     
     context = {
         'products':products,

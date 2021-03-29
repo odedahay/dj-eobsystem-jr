@@ -584,6 +584,8 @@ hr.style-one {
     }
 }
 
+
+
 .hero-banner__text-box{
     position: absolute;
     top: 50%;
@@ -702,11 +704,11 @@ hr.style-one {
    
 }
 @media (min-width: 800px) {
-    .hero-banner{
+    /* .hero-banner{
         height: 60vh;
         margin-top: -61px;
         clip-path: polygon(0 0, 100% 0, 100% 100%, 0 50vh);
-    }
+    } */
 
     .hero-banner__inner{
         height: 300px;

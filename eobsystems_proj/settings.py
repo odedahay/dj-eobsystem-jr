@@ -23,6 +23,9 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # SECURITY WARNING: keep the secret key used in production secret!
 SECRET_KEY = 'hy*tt%j)1#om75d51*1^4%#6w4ehw-k1v115(btgh0u=pg=5!w'
 
+# Google Secret Key
+GOOGLE_RECAPTCHA_SECRET_KEY = '6Lee1JMaAAAAAKN0UhXDZyG7o8i0CwlTV1J1OuLK'
+
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
@@ -137,11 +140,11 @@ STATICFILES_DIRS = [
 MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
 MEDIA_URL = '/media/'
 
-# EMAIL_HOST = 'smtp.gmail.com'
-# EMAIL_HOST_USER = ''
-# EMAIL_HOST_PASSWORD = ''
-# EMAIL_PORT = 587
-# EMAIL_USE_TLS = True
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_HOST_USER = 'ebelveder.eob@gmail.com'
+EMAIL_HOST_PASSWORD = 'diannepasag'
+EMAIL_PORT = 587
+EMAIL_USE_TLS = True
 
 
 # Messages
