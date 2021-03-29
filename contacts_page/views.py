@@ -28,55 +28,55 @@ def contact_us(request):
         message = request.POST.get('message')
 
         ''' Begin reCAPTCHA validation '''
-        # recaptcha_response = request.POST.get('g-recaptcha-response')
-        # url = 'https://www.google.com/recaptcha/api/siteverify'
-        # values = {
-        #     'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
-        #     'response': recaptcha_response
-        # }
-        # data = urllib.parse.urlencode(values).encode()
-        # req =  urllib.request.Request(url, data=data)
-        # response = urllib.request.urlopen(req)
-        # result = json.loads(response.read().decode())
+        recaptcha_response = request.POST.get('g-recaptcha-response')
+        url = 'https://www.google.com/recaptcha/api/siteverify'
+        values = {
+            'secret': settings.GOOGLE_RECAPTCHA_SECRET_KEY,
+            'response': recaptcha_response
+        }
+        data = urllib.parse.urlencode(values).encode()
+        req =  urllib.request.Request(url, data=data)
+        response = urllib.request.urlopen(req)
+        result = json.loads(response.read().decode())
 
         ''' End reCAPTCHA validation '''
 
-        # if result['success']:
+        if result['success']:
 
-        # save to object
-        contextEmail = {
-                'name' :name,
-                'email' :email,
-                'phone' :phone,
-                'enquiry' :enquiry,
-                'message' :message,
-        }
-        # Save to DB
-        contact = Contact(name=name, email=email, phone=phone, enquiry=enquiry,  message=message)
-        contact.save()
+            # save to object
+            contextEmail = {
+                    'name' :name,
+                    'email' :email,
+                    'phone' :phone,
+                    'enquiry' :enquiry,
+                    'message' :message,
+            }
+            # Save to DB
+            contact = Contact(name=name, email=email, phone=phone, enquiry=enquiry,  message=message)
+            contact.save()
 
-        try:
-            #settings.EMAIL_HOST_USER,
-            mail = EmailMessage(
-                'Email inquiry from ' + name, 
-                # 'Contact Number: ' +  phone + '.'+ '%0A' + message + '\n', 
-                render_to_string('contacts/email.html', contextEmail),
-                email,
-                [settings.EMAIL_HOST_USER], 
-                reply_to=[email]              
-            )
+            try:
+                #settings.EMAIL_HOST_USER,
+                mail = EmailMessage(
+                    'Email inquiry from ' + name, 
+                    # 'Contact Number: ' +  phone + '.'+ '%0A' + message + '\n', 
+                    render_to_string('contacts/email.html', contextEmail),
+                    email,
+                    [settings.EMAIL_HOST_USER], 
+                    reply_to=[email]              
+                )
 
-            mail.content_subtype = 'html'
-            mail.send(fail_silently=False)
+                mail.content_subtype = 'html'
+                mail.send(fail_silently=False)
 
-        except BadHeaderError:
-            return HttpResponse('Invalid header found')
+            except BadHeaderError:
+                return HttpResponse('Invalid header found')
 
-        return redirect('/contact-us/thank-you')
+            return redirect('/contact-us/thank-you')
 
-        # else:
-        #     messages.error(request, 'Invalid reCAPTCHA. Please try again.')
-        #     return redirect('contact-us')
+        else:
+            messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+            return redirect('contact-us')
     
     context = {
         'products':products,
