@@ -24,7 +24,7 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 SECRET_KEY = 'hy*tt%j)1#om75d51*1^4%#6w4ehw-k1v115(btgh0u=pg=5!w'
 
 # Google Secret Key
-GOOGLE_RECAPTCHA_SECRET_KEY = ''
+#GOOGLE_RECAPTCHA_SECRET_KEY = ''
 
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
