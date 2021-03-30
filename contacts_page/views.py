@@ -73,7 +73,7 @@ def contact_us(request):
             return redirect('/contact-us/thank-you')
 
         else:
-            messages.error(request, 'Invalid reCAPTCHA. Please try again.')
+            messages.error(request, 'Invalid reCAPTCHA. Please check the checkbox and try again.')
             return redirect('contact-us')
     
     context = {
